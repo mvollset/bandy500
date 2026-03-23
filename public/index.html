@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="no">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>500 KG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;600&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+        <style>
+  #myVideo {
+    transition: opacity 3s ease;
+  }
+  #myVideo.faded {
+    opacity: 0;
+  }
+  #muteBtn {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 10;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #videoModal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0,0,0,0.9);
+    align-items: center;
+    justify-content: center;
+  }
+  #videoModal.open {
+    display: flex;
+  }
+  #videoModal .modal-inner {
+    position: relative;
+    width: 90vw;
+    max-width: 1280px;
+  }
+  #videoModal .modal-inner::before {
+    content: '';
+    display: block;
+    padding-top: 56.25%; /* 16:9 */
+  }
+  #modalVideo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  #modalClose {
+    position: absolute;
+    top: -2.5rem;
+    right: 0;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  #playBtn {
+    margin-top: 1.5rem;
+    background: none;
+    border: 2px solid white;
+    color: white;
+    padding: 0.6rem 1.4rem;
+    font-size: 1rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  #playBtn:hover {
+    background: white;
+    color: black;
+  }
+</style>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const video = document.getElementById('myVideo');
+    const muteBtn = document.getElementById('muteBtn');
+    const modal = document.getElementById('videoModal');
+    const modalVideo = document.getElementById('modalVideo');
+    const playBtn = document.getElementById('playBtn');
+    const modalClose = document.getElementById('modalClose');
+
+    video.addEventListener('ended', () => {
+      video.classList.add('faded');
+    });
+
+    muteBtn.addEventListener('click', () => {
+      video.muted = !video.muted;
+      muteBtn.textContent = video.muted ? '🔇' : '🔊';
+    });
+
+    playBtn.addEventListener('click', () => {
+      modal.classList.add('open');
+      video.muted = true;
+      modalVideo.play();
+    });
+
+    function closeModal() {
+      modal.classList.remove('open');
+      modalVideo.pause();
+      modalVideo.currentTime = 0;
+    }
+
+    modalClose.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+  });
+</script>
+
+<body>
+    <div class="container">
+
+        <!-- NAV -->
+        <nav>
+            <a href="#" class="nav-logo">
+                <span class="material-symbols-outlined text-4xl font-black text-primary">weight</span>
+                500 KG
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="https://fb.me/e/9AkBjSHgN" alt="Se arrangementet på facebook"><img
+                            src="images/facebook.svg" alt="Facebook"></a></li>
+                <li><a href="https://soundcloud.com/500kg-752015410?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                        alt="Besøk oss på Soundcloud"></a><img src="images/soundcloud-icon.png" alt="Soundcloud"></a>
+                </li>
+
+            </ul>
+
+            <a href="#mailing" class="btn-mailing">Mailing List</a>
+        </nav>
+
+        <!-- HERO -->
+        <section class="hero">
+            <div
+                class="hero-bg  absolute inset-0 grayscale opacity-50 transition-transform duration-700 group-hover:scale-105">
+                <video autoplay muted playsinline id="myVideo">
+                    <source src="images/clip-short.webm" type="video/webm">-->
+                    <source src="images/clip-short.mp4" type="video/mp4">
+                </video>
+                <button id="muteBtn" aria-label="Toggle mute">🔇</button>
+            </div>
+            <div class="hero-content">
+                <div class="hero-tag">Phase 01: Nedslagsfelt Oslo 4</div>
+                <h1>Tungt &amp;<br>Solid</h1>
+                <p class="hero-sub">
+                    Når Pelle fyrer med parafin – fyrer vi ½ tonn<br>
+                    rock'n roll !
+                </p>
+                <button id="playBtn">
+                    <span class="material-symbols-outlined">play_circle</span>
+                    Se video
+                </button>
+            </div>
+        </section>
+
+        <!-- VIDEO MODAL -->
+        <div id="videoModal" role="dialog" aria-modal="true">
+            <div class="modal-inner">
+                <button id="modalClose" aria-label="Lukk">&times;</button>
+                <video id="modalVideo" controls playsinline>
+                    <source src="images/imeidig.webm" type="video/webm">
+                    <source src="images/imeidig.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+        <!-- UPCOMING IMPACTS -->
+        <section class="upcoming" id="tour">
+            <div class="upcoming-header">
+                <h2>Kun en mulighet!</h2>
+                <div class="tour-density">
+                    <div class="label">Tour Density</div>
+                    <div class="value">100% Loaded</div>
+                </div>
+            </div>
+
+            <div class="event-card">
+                <div class="event-date">
+                    <div class="month">APR</div>
+                    <div class="day">17</div>
+                    <div class="year">2026</div>
+                </div>
+
+                <div class="event-venue">
+                    <div class="city">Oslo</div>
+                    <div class="location">Trikkestallen</div>
+                </div>
+
+                <div class="event-capacity">
+                    <div class="cap-label">Load Capacity</div>
+                    <div class="cap-value">500KG / SQM</div>
+                </div>
+
+                <div class="event-ticket">
+                    <a href="#" class="btn-ticket">
+                        C.C. 100 KR
+                        <span class="material-symbols-outlined">confirmation_number</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ABOUT -->
+        <section class="about" id="music">
+            <div class="about-text">
+                <h2>
+                    <span class="material-symbols-outlined text-4xl font-black text-primary">weight</span>
+                    500 KG
+                </h2>
+                <p>
+                    Norges best bevarte hemmelighet? 500 kg menn i sin beste alder balanserer
+                    <a class="underline decoration-1"
+                        href="https://soundcloud.com/500kg-752015410/naken-promo-4?in=500kg-752015410/sets/500kg-promo">nakne</a>
+                    på
+                    <a class="underline decoration-1"
+                        href="https://soundcloud.com/500kg-752015410/stram-line-promo-5?in=500kg-752015410/sets/500kg-promo">stram
+                        line</a>
+                    for å gi deg magiske rockelåter du aldri før har hørt.
+                </p>
+            </div>
+
+            <div class="soundcloud-embed">
+                <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay"
+                    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A2199288764&color=%2354A0C2&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
+                </iframe>
+            </div>
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-logo">
+                <span class="material-symbols-outlined text-4xl font-black text-primary">weight</span>
+                500 KG
+            </div>
+            <p>&copy; 2026 500 KG. All rights reserved.</p>
+        </footer>
+
+    </div>
+</body>
+
+</html>
