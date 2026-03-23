@@ -202,25 +202,59 @@
             const mainVideo = document.getElementById('mainVideo');
             const playlistItems = document.querySelectorAll('.playlist-item');
 
+            // Function to get URL parameters
+            function getUrlParameter(name) {
+                name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+                const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+                const results = regex.exec(location.search);
+                return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+            }
+
+            // Function to switch video
+            function switchVideo(videoName) {
+                const videoItem = document.querySelector(`.playlist-item[data-video="${videoName}"]`);
+                if (!videoItem) return;
+
+                const videoTitle = videoItem.dataset.title;
+
+                // Update video sources
+                mainVideo.innerHTML = `
+                    <source src="images/${videoName}.webm" type="video/webm">
+                    <source src="images/${videoName}.mp4" type="video/mp4">
+                    Your browser does not support HTML5 video.
+                `;
+
+                // Update active state
+                playlistItems.forEach(i => i.classList.remove('active'));
+                videoItem.classList.add('active');
+
+                // Load the video
+                mainVideo.load();
+            }
+
+            // Check for video parameter in URL and set initial video
+            const initialVideo = getUrlParameter('video');
+            if (initialVideo && document.querySelector(`.playlist-item[data-video="${initialVideo}"]`)) {
+                switchVideo(initialVideo);
+                // Auto-play muted when accessed via URL parameter
+                mainVideo.muted = true;
+                mainVideo.play().catch(e => {
+                    // Handle autoplay policy restrictions
+                    console.log('Autoplay prevented:', e);
+                });
+            } else {
+                // Default to imeidig if no valid video parameter
+                switchVideo('imeidig');
+            }
+
+            // Add click handlers for playlist items
             playlistItems.forEach(item => {
                 item.addEventListener('click', () => {
                     const videoName = item.dataset.video;
-                    const videoTitle = item.dataset.title;
-
-                    // Update video sources
-                    mainVideo.innerHTML = `
-                        <source src="images/${videoName}.webm" type="video/webm">
-                        <source src="images/${videoName}.mp4" type="video/mp4">
-                        Your browser does not support HTML5 video.
-                    `;
-
-                    // Update active state
-                    playlistItems.forEach(i => i.classList.remove('active'));
-                    item.classList.add('active');
-
-                    // Play the video
-                    mainVideo.load();
-                    mainVideo.play();
+                    switchVideo(videoName);
+                    // Update URL without reloading page
+                    const newUrl = window.location.pathname + '?video=' + encodeURIComponent(videoName);
+                    window.history.pushState({}, '', newUrl);
                 });
             });
         });
