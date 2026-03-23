@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="no">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>500 KG - Media</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;600&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+      .video-player {
+        position: relative;
+        width: 100%;
+        margin: 0 0 2rem 0;
+      }
+      
+      .video-player video {
+        width: 100%;
+        height: auto;
+        display: block;
+        background: #000;
+      }
+
+      .playlist-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .playlist-item {
+        cursor: pointer;
+        aspect-ratio: 16/9;
+        background: #1a1a1a;
+        border: 2px solid transparent;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .playlist-item:hover {
+        border-color: #0099ff;
+        transform: scale(1.05);
+      }
+
+      .playlist-item.active {
+        border-color: #0099ff;
+        box-shadow: 0 0 10px rgba(0, 153, 255, 0.5);
+      }
+
+      .playlist-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .playlist-item-label {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 0.5rem;
+        font-size: 0.75rem;
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .playlist-item .play-icon {
+        position: absolute;
+        font-size: 2rem;
+        color: white;
+        opacity: 0.7;
+        transition: opacity 0.3s;
+      }
+
+      .playlist-item:hover .play-icon {
+        opacity: 1;
+      }
+
+      .media-section {
+        margin: 3rem 0;
+      }
+
+      .media-section h2 {
+        margin-bottom: 1.5rem;
+        font-size: 2rem;
+      }
+    </style>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- NAV -->
+        <nav>
+            <a href="index.html" class="nav-logo">
+                <span class="material-symbols-outlined text-4xl font-black text-primary">weight</span>
+                500 KG
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="media.html" alt="Se media"><span class="material-symbols-outlined">video_library</span></a></li>
+                <li><a href="https://fb.me/e/9AkBjSHgN" alt="Se arrangementet på facebook"><img
+                            src="images/facebook.svg" alt="Facebook"></a></li>
+                <li><a href="https://soundcloud.com/500kg-752015410?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                        alt="Besøk oss på Soundcloud"></a><img src="images/soundcloud-icon.png" alt="Soundcloud"></a>
+                </li>
+            </ul>
+
+            <a href="#mailing" class="btn-mailing">Mailing List</a>
+        </nav>
+
+        <!-- MEDIA SECTION -->
+        <section class="media-section">
+            <div class="media-content">
+                <h1>Media</h1>
+                <p class="hero-sub">Sjekk ut videoene fra 500 KG</p>
+
+                <!-- VIDEO PLAYER -->
+                <div class="video-player">
+                    <video id="mainVideo" controls playsinline>
+                        <source src="images/imeidig.webm" type="video/webm">
+                        <source src="images/imeidig.mp4" type="video/mp4">
+                        Your browser does not support HTML5 video.
+                    </video>
+                </div>
+
+                <!-- PLAYLIST -->
+                <h3>Velg en video:</h3>
+                <div class="playlist-container" id="playlist">
+                    <div class="playlist-item active" data-video="imeidig" data-title="Imeidig">
+                        <img src="images/imeidig-thumb.jpg" alt="Imeidig">
+                        <span class="material-symbols-outlined play-icon">play_circle</span>
+                        <div class="playlist-item-label">Imeidig</div>
+                    </div>
+                    <div class="playlist-item" data-video="birkenmann" data-title="Birkenmann">
+                        <img src="images/birkenmann-thumb.jpg" alt="Birkenmann">
+                        <span class="material-symbols-outlined play-icon">play_circle</span>
+                        <div class="playlist-item-label">Birkenmann</div>
+                    </div>
+                    <div class="playlist-item" data-video="naken" data-title="Naken">
+                        <img src="images/naken-thumb.jpg" alt="Naken">
+                        <span class="material-symbols-outlined play-icon">play_circle</span>
+                        <div class="playlist-item-label">Naken</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="about" id="music">
+            <div class="about-text">
+                <h2>
+                    <span class="material-symbols-outlined text-4xl font-black text-primary">weight</span>
+                    500 KG
+                </h2>
+                <p>
+                    Norges best bevarte hemmelighet? 500 kg menn i sin beste alder balanserer
+                    <a class="underline decoration-1"
+                        href="https://soundcloud.com/500kg-752015410/naken-promo-4?in=500kg-752015410/sets/500kg-promo">nakne</a>
+                    på
+                    <a class="underline decoration-1"
+                        href="https://soundcloud.com/500kg-752015410/stram-line-promo-5?in=500kg-752015410/sets/500kg-promo">stram
+                        line</a>
+                    for å gi deg magiske rockelåter du aldri før har hørt.
+                </p>
+            </div>
+
+            <div class="soundcloud-embed">
+                <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay"
+                    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A2199288764&color=%2354A0C2&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
+                </iframe>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-logo">
+                <span class="material-symbols-outlined text-4xl font-black text-primary">weight</span>
+                500 KG
+            </div>
+            <p>&copy; 2026 500 KG. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainVideo = document.getElementById('mainVideo');
+            const playlistItems = document.querySelectorAll('.playlist-item');
+
+            playlistItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const videoName = item.dataset.video;
+                    const videoTitle = item.dataset.title;
+
+                    // Update video sources
+                    mainVideo.innerHTML = `
+                        <source src="images/${videoName}.webm" type="video/webm">
+                        <source src="images/${videoName}.mp4" type="video/mp4">
+                        Your browser does not support HTML5 video.
+                    `;
+
+                    // Update active state
+                    playlistItems.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+
+                    // Play the video
+                    mainVideo.load();
+                    mainVideo.play();
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
